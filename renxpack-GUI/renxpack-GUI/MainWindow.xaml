@@ -1,0 +1,28 @@
+﻿<Window x:Class="RENXPACK_GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:hacPack_GUI"
+        mc:Ignorable="d"
+        Title="reNXpack GUI v1.00 by The-4n" Height="374.195" Width="775.017" WindowStartupLocation="Manual" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid HorizontalAlignment="Left" Width="759" Margin="0,0,-5.667,0.333">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="113*"/>
+            <ColumnDefinition Width="295*"/>
+            <ColumnDefinition Width="351*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="lbl_outdir" Content="Output Directory:" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txt_outdir" HorizontalAlignment="Left" Height="22" Margin="3.618,46,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="519" Grid.ColumnSpan="2" Grid.Column="1" TabIndex="2"/>
+        <Button x:Name="btn_browse_outdir" Content="Browse" HorizontalAlignment="Left" Margin="232.334,46,0,0" VerticalAlignment="Top" Width="102" Height="22" Click="btn_browse_outdir_Click" Grid.Column="2" TabIndex="3"/>
+        <TextBox x:Name="txt_log" HorizontalAlignment="Left" Height="184" Margin="10,138,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="733" Grid.ColumnSpan="3" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+        <Label x:Name="lbl_keyset" Content="Keyset File:" HorizontalAlignment="Left" Margin="44,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,0.561"/>
+        <TextBox x:Name="txt_keyset" HorizontalAlignment="Left" Height="22" Margin="3.618,80,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="519" Grid.ColumnSpan="2" Grid.Column="1" TabIndex="4"/>
+        <Button x:Name="btn_browse_keyset" Content="Browse" HorizontalAlignment="Left" Margin="232.334,80,0,0" VerticalAlignment="Top" Width="102" Height="22" Click="btn_browse_keyset_Click" Grid.Column="2" TabIndex="5"/>
+        <Label x:Name="lbl_nsp" Content="NSP:" HorizontalAlignment="Left" Margin="78,11,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txt_nsp" HorizontalAlignment="Left" Height="22" Margin="3.618,13,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="519" Grid.ColumnSpan="2" Grid.Column="1" TabIndex="0"/>
+        <Button x:Name="btn_browse_nsp" Content="Browse" HorizontalAlignment="Left" Margin="232.334,13,0,0" VerticalAlignment="Top" Width="102" Height="22" Click="btn_browse_nsp_Click" Grid.Column="2" TabIndex="1"/>
+        <Button x:Name="btn_convert" Content="Convert" HorizontalAlignment="Left" Margin="232.334,111,0,0" VerticalAlignment="Top" Width="102" Height="22" Click="btn_convert_Click" Grid.Column="2" TabIndex="9"/>
+        <CheckBox x:Name="chk_tempfolder" Content="Use Output Dir as Temporary" HorizontalAlignment="Left" Margin="16,114,0,0" VerticalAlignment="Top" Width="211" Grid.Column="2" TabIndex="8"/>
+    </Grid>
+</Window>
