@@ -66,7 +66,7 @@ void cnmt_process(renxpack_ctx_t *tool, cnmt_xml_ctx_t *cnmt_xml_ctx, cnmt_ctx_t
     sprintf(cnmt_xml_ctx->patch_id, "%016" PRIx64, cnmt_ctx->extended_header_patch_id);
     cnmt_xml_ctx->digest = (char *)calloc(1, 65);
     hexBinaryString(cnmt_ctx->digest, 32, cnmt_xml_ctx->digest, 65);
-    cnmt_xml_ctx->requiredsysversion = cnmt_ctx->requiredsysversion;
+    cnmt_xml_ctx->requiredsysversion = 0;
     cnmt_xml_ctx->title_version = cnmt_ctx->title_version;
     cnmt_xml_ctx->keygen_min = cnmt_ctx->keygen_min;
     cnmt_xml_ctx->type = cnmt_get_title_type(cnmt_ctx);
