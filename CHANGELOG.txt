@@ -1,5 +1,6 @@
 v1.01
 Fixed a bug in repacking updates
+Fixed .cnmt.xml invalid RequiredSystemVersion value
 
 v1.00
 Initial release
