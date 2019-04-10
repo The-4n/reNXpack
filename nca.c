@@ -330,13 +330,11 @@ void nca_cnmt_process(nca_ctx_t *ctx, cnmt_ctx_t *cnmt_ctx)
     nca_section_fseek(&ctx->section_contexts[0], raw_data_offset + 0xC);
     nca_section_fread(&ctx->section_contexts[0], &meta_type, 0x1);
     // Set Extended header
-    char temp_buff[0x8] = {0};
-    if (meta_type != 0x81)
-    {
-        extended_header_min = raw_data_offset + sizeof(cnmt_header_t) + 0x8;
-        nca_section_fseek(&ctx->section_contexts[0], extended_header_min);
-        nca_section_fwrite(&ctx->section_contexts[0], temp_buff, 0x8, extended_header_min);
-    }
+    char temp_buff[0x4] = {0};
+    extended_header_min = raw_data_offset + sizeof(cnmt_header_t) + 0x8;
+    nca_section_fseek(&ctx->section_contexts[0], extended_header_min);
+    nca_section_fwrite(&ctx->section_contexts[0], temp_buff, 0x4, extended_header_min);
+
     // Write meta content records
     content_records_offset = raw_data_offset + sizeof(cnmt_header_t) + cnmt_ctx->extended_header_size;
     for (int i = 0; i < cnmt_ctx->nca_count; i++)
