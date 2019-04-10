@@ -671,13 +671,13 @@ void nca_process(nca_ctx_t *ctx, filepath_t *filepath, int index, cnmt_xml_ctx_t
     if (content_type != 1)
     {
         nsp_ctx->nsp_entry[index].nsp_filename = (char *)calloc(1, 37);
-        strncpy(nsp_ctx->nsp_entry[index].nsp_filename, cnmt_xml_ctx->contents[index - 1].id, 0x20);
+        memcpy(nsp_ctx->nsp_entry[index].nsp_filename, cnmt_xml_ctx->contents[index - 1].id, 0x20);
         strcat(nsp_ctx->nsp_entry[index].nsp_filename, ".nca");
     }
     else // Meta nca
     {
         nsp_ctx->nsp_entry[index].nsp_filename = (char *)calloc(1, 42);
-        strncpy(nsp_ctx->nsp_entry[index].nsp_filename, cnmt_xml_ctx->contents[index - 1].id, 0x20);
+        memcpy(nsp_ctx->nsp_entry[index].nsp_filename, cnmt_xml_ctx->contents[index - 1].id, 0x20);
         strcat(nsp_ctx->nsp_entry[index].nsp_filename, ".cnmt.nca");
     }
 }

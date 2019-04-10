@@ -71,7 +71,7 @@ void cnmt_process(renxpack_ctx_t *tool, cnmt_xml_ctx_t *cnmt_xml_ctx, cnmt_ctx_t
     cnmt_xml_ctx->keygen_min = cnmt_ctx->keygen_min;
     cnmt_xml_ctx->type = cnmt_get_title_type(cnmt_ctx);
     char *cnmt_xml_filepath = (char *)calloc(1, strlen(cnmt_ctx->meta_filepath.char_path) + 1);
-    strncpy(cnmt_xml_filepath, cnmt_ctx->meta_filepath.char_path, strlen(cnmt_ctx->meta_filepath.char_path) - 4);
+    memcpy(cnmt_xml_filepath, cnmt_ctx->meta_filepath.char_path, strlen(cnmt_ctx->meta_filepath.char_path) - 4);
     strcat(cnmt_xml_filepath, ".xml");
     filepath_init(&cnmt_xml_ctx->filepath);
     filepath_set(&cnmt_xml_ctx->filepath, cnmt_xml_filepath);
