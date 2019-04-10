@@ -32,7 +32,8 @@ unsigned char *ticket_get_titlekey(nca_ctx_t *ctx)
         fprintf(stderr, "Error: Failed to read title key from ticket file!\n");
         exit(EXIT_FAILURE);
     }
-
+    
+    fclose(file);
     // Decrypt titlekey
     aes_ctx_t *aes_tkey_ctx = new_aes_ctx(ctx->tool_ctx->settings.keyset.titlekeks[ctx->crypto_type], 16, AES_MODE_ECB);
     aes_decrypt(aes_tkey_ctx, title_key, title_key, 0x10);
