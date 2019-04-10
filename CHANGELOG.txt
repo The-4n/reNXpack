@@ -1,2 +1,5 @@
+v1.01
+Fixed a bug in repacking updates
+
 v1.00
 Initial release
