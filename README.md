@@ -13,6 +13,7 @@ Thanks: SciresM, Rajkosto, Switch Brew
 * Convert titlekey encrypted ncas to standard encrypted ncas
 * Patch required firmware version and required application version to zero
 * Support nsps containing multiple games, updates and dlcs
+* Multiplatform compatibility including Windows, macOS and Linux
 
 ## Usage
 

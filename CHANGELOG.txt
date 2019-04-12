@@ -1,3 +1,6 @@
+v1.10
+Added NPDM(ACID/ACI0) kac minimum_kernel_version patching
+
 v1.01
 Fixed a bug in repacking updates
 Fixed .cnmt.xml invalid RequiredSystemVersion value
