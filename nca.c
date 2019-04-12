@@ -164,6 +164,7 @@ void nca_exefs_npdm_process(nca_ctx_t *ctx)
     uint64_t file_entry_table_offset = 0;
     uint64_t file_entry_table_size = 0;
     uint64_t meta_offset = 0;
+    uint64_t meta_end_offset = 0;
     uint64_t acid_offset = 0;
     uint64_t acid_pubkey_offset = 0;
     uint64_t aci0_offset = 0;
@@ -286,8 +287,9 @@ void nca_exefs_npdm_process(nca_ctx_t *ctx)
             free(aci0_kac);
 
             // Calculate new block hash
-            block_hash_table_offset = (0x20 * ((acid_pubkey_offset - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset) / ctx->header.fs_headers[0].pfs0_superblock.block_size)) + ctx->header.fs_headers[0].pfs0_superblock.hash_table_offset;
-            block_hash_table_end_offset = (0x20 * ((acid_pubkey_offset + 0x100 - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset) / ctx->header.fs_headers[0].pfs0_superblock.block_size)) + ctx->header.fs_headers[0].pfs0_superblock.hash_table_offset;
+            meta_end_offset = meta_offset + pfs0_file_entry_table[i2].size;
+            block_hash_table_offset = (0x20 * ((meta_offset - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset) / ctx->header.fs_headers[0].pfs0_superblock.block_size)) + ctx->header.fs_headers[0].pfs0_superblock.hash_table_offset;
+            block_hash_table_end_offset = (0x20 * ((meta_end_offset - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset) / ctx->header.fs_headers[0].pfs0_superblock.block_size)) + ctx->header.fs_headers[0].pfs0_superblock.hash_table_offset;
             block_start_offset = (((acid_pubkey_offset - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset) / ctx->header.fs_headers[0].pfs0_superblock.block_size) * ctx->header.fs_headers[0].pfs0_superblock.block_size) + ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset;
             // Make sure block doesn't pass pfs0
             if (block_start_offset - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset + ctx->header.fs_headers[0].pfs0_superblock.block_size > ctx->header.fs_headers[0].pfs0_superblock.pfs0_size)
@@ -308,12 +310,11 @@ void nca_exefs_npdm_process(nca_ctx_t *ctx)
             // Make sure that 1 block covers all patched bytes, othervise recalculate another hash block
             if (block_hash_table_offset != block_hash_table_end_offset)
             {
-                block_start_offset = (((acid_pubkey_offset + 0x100 - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset) / ctx->header.fs_headers[0].pfs0_superblock.block_size) * ctx->header.fs_headers[0].pfs0_superblock.block_size) + ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset;
+                block_start_offset = (((meta_end_offset - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset) / ctx->header.fs_headers[0].pfs0_superblock.block_size) * ctx->header.fs_headers[0].pfs0_superblock.block_size) + ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset;
                 if (block_start_offset - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset + ctx->header.fs_headers[0].pfs0_superblock.block_size > ctx->header.fs_headers[0].pfs0_superblock.pfs0_size)
                     block_size = ctx->header.fs_headers[0].pfs0_superblock.pfs0_size - block_start_offset - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset;
                 else
                     block_size = ctx->header.fs_headers[0].pfs0_superblock.block_size;
-
                 block_data = (unsigned char *)malloc(block_size);
                 block_hash = (unsigned char *)malloc(0x20);
                 nca_section_fseek(&ctx->section_contexts[0], block_start_offset);
