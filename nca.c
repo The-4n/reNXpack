@@ -166,12 +166,16 @@ void nca_exefs_npdm_process(nca_ctx_t *ctx)
     uint64_t meta_offset = 0;
     uint64_t acid_offset = 0;
     uint64_t acid_pubkey_offset = 0;
+    uint64_t aci0_offset = 0;
+    uint64_t acid_kac_offset = 0;
+    uint64_t aci0_kac_offset = 0;
     uint64_t raw_data_offset = 0;
     uint64_t file_raw_data_offset = 0;
     uint64_t block_start_offset = 0;
     uint64_t block_hash_table_offset = 0;
     uint64_t block_hash_table_end_offset = 0;
     uint64_t block_size = 0;
+    uint32_t kac_minimum_kernel_version = 0x183FFF;
 
     // Looking for main.npdm / META
     ctx->section_contexts[0].aes = new_aes_ctx(ctx->header.encrypted_keys[2], 16, AES_MODE_CTR);
@@ -221,6 +225,65 @@ void nca_exefs_npdm_process(nca_ctx_t *ctx)
             acid_pubkey_offset = acid_offset + 0x100;
             nca_section_fseek(&ctx->section_contexts[0], acid_pubkey_offset);
             nca_section_fwrite(&ctx->section_contexts[0], (unsigned char *)rsa_get_public_key(), 0x100, acid_pubkey_offset);
+
+            // Read ACID header
+            npdm_acid_t npdm_acid_header;
+            nca_section_fseek(&ctx->section_contexts[0], acid_offset);
+            nca_section_fread(&ctx->section_contexts[0], &npdm_acid_header, sizeof(npdm_acid_t));
+
+            // Read ACI0 Header
+            aci0_offset = meta_offset + npdm_header.aci0_offset;
+            npdm_aci0_t npdm_aci0_header;
+            nca_section_fseek(&ctx->section_contexts[0], aci0_offset);
+            nca_section_fread(&ctx->section_contexts[0], &npdm_aci0_header, sizeof(npdm_aci0_t));
+
+            // Patch ACID kac minimum kernel version
+            uint32_t *acid_kac = (uint32_t *)calloc(1, npdm_acid_header.kac_size);
+            acid_kac_offset = acid_offset + npdm_acid_header.kac_offset;
+            nca_section_fseek(&ctx->section_contexts[0], acid_kac_offset);
+            nca_section_fread(&ctx->section_contexts[0], acid_kac, npdm_acid_header.kac_size);
+            for (uint32_t aciddescc = 0; aciddescc < npdm_acid_header.kac_size / sizeof(uint32_t); aciddescc++)
+            {
+                uint32_t aciddesc = acid_kac[aciddescc];
+                if (aciddesc == 0xFFFFFFFF)
+                    continue;
+                unsigned int acid_low_bits = 0;
+                while (aciddesc & 1)
+                {
+                    aciddesc >>= 1;
+                    acid_low_bits++;
+                }
+                if (acid_low_bits == 14)
+                {
+                    uint64_t acid_kac_patch_offset = acid_kac_offset + (aciddescc * sizeof(uint32_t));
+                    nca_section_fwrite(&ctx->section_contexts[0], &kac_minimum_kernel_version, sizeof(uint32_t), acid_kac_patch_offset);
+                }
+            }
+            free(acid_kac);
+
+            // Patch ACI0 kac minimum kernel version
+            uint32_t *aci0_kac = (uint32_t *)calloc(1, npdm_aci0_header.kac_size);
+            aci0_kac_offset = aci0_offset + npdm_aci0_header.kac_offset;
+            nca_section_fseek(&ctx->section_contexts[0], aci0_kac_offset);
+            nca_section_fread(&ctx->section_contexts[0], aci0_kac, npdm_aci0_header.kac_size);
+            for (uint32_t aci0descc = 0; aci0descc < npdm_aci0_header.kac_size / sizeof(uint32_t); aci0descc++)
+            {
+                uint32_t aci0desc = aci0_kac[aci0descc];
+                if (aci0desc == 0xFFFFFFFF)
+                    continue;
+                unsigned int aci0_low_bits = 0;
+                while (aci0desc & 1)
+                {
+                    aci0desc >>= 1;
+                    aci0_low_bits++;
+                }
+                if (aci0_low_bits == 14)
+                {
+                    uint64_t aci0_kac_patch_offset = aci0_kac_offset + (aci0descc * sizeof(uint32_t));
+                    nca_section_fwrite(&ctx->section_contexts[0], &kac_minimum_kernel_version, sizeof(uint32_t), aci0_kac_patch_offset);
+                }
+            }
+            free(aci0_kac);
 
             // Calculate new block hash
             block_hash_table_offset = (0x20 * ((acid_pubkey_offset - ctx->header.fs_headers[0].pfs0_superblock.pfs0_offset) / ctx->header.fs_headers[0].pfs0_superblock.block_size)) + ctx->header.fs_headers[0].pfs0_superblock.hash_table_offset;

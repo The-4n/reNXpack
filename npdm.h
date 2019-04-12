@@ -28,4 +28,40 @@ typedef struct {
 } npdm_t;
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+typedef struct {
+    uint32_t magic;
+    uint8_t _0x4[0xC];
+    uint64_t title_id;
+    uint64_t _0x18;
+    uint32_t fah_offset;
+    uint32_t fah_size;
+    uint32_t sac_offset;
+    uint32_t sac_size;
+    uint32_t kac_offset;
+    uint32_t kac_size;
+    uint64_t padding;
+} npdm_aci0_t;
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+typedef struct {
+    uint8_t signature[0x100];
+    uint8_t modulus[0x100];
+    uint32_t magic;
+    uint32_t size;
+    uint32_t _0x208;
+    uint32_t flags;
+    uint64_t title_id_range_min;
+    uint64_t title_id_range_max;
+    uint32_t fac_offset;
+    uint32_t fac_size;
+    uint32_t sac_offset;
+    uint32_t sac_size;
+    uint32_t kac_offset;
+    uint32_t kac_size;
+    uint64_t padding;
+} npdm_acid_t;
+#pragma pack(pop)
+
 #endif
