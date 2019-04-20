@@ -107,7 +107,7 @@ void filepath_set(filepath_t *fpath, const char *path) {
     if (strlen(path) < MAX_PATH) {
         fpath->valid = VALIDITY_VALID;
         memset(fpath->char_path, 0, MAX_PATH);
-        memcpy(fpath->char_path, path, MAX_PATH);
+        strncpy(fpath->char_path, path, MAX_PATH - 1);
         filepath_update(fpath);
     } else {
         fpath->valid = VALIDITY_INVALID;

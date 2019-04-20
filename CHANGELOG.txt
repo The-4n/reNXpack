@@ -1,3 +1,6 @@
+v1.16
+Fixed a bug in file paths
+
 v1.15
 Added requiredsystemversion and keygeneration in summary
 Fixed a bug in PFS0 validation
