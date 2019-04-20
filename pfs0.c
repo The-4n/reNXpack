@@ -34,21 +34,6 @@ void pfs0_process(pfs0_ctx_t *ctx)
         exit(EXIT_FAILURE);
     }
 
-    /* Weak file validation. */
-    uint64_t max_size = 0x1ULL;
-    max_size <<= 48; /* Switch file sizes are capped at 48 bits. */
-    uint64_t cur_ofs = 0;
-    for (unsigned int i = 0; i < ctx->header->num_files; i++)
-    {
-        pfs0_file_entry_t *cur_file = pfs0_get_file_entry(ctx->header, i);
-        if (cur_file->offset != cur_ofs)
-        {
-            printf("Error: PFS0 is corrupt!\n");
-            exit(EXIT_FAILURE);
-        }
-        cur_ofs += cur_file->size;
-    }
-
     pfs0_save(ctx);
 }
 
