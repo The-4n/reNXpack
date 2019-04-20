@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hacPack_GUI"
         mc:Ignorable="d"
-        Title="reNXpack GUI v1.11 by The-4n" Height="374.195" Width="775.017" WindowStartupLocation="Manual" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="reNXpack GUI v1.15 by The-4n" Height="374.195" Width="775.017" WindowStartupLocation="Manual" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid HorizontalAlignment="Left" Width="759" Margin="0,0,-5.667,0.333">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="113*"/>
@@ -22,7 +22,7 @@
         <Label x:Name="lbl_nsp" Content="NSP:" HorizontalAlignment="Left" Margin="78,11,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txt_nsp" HorizontalAlignment="Left" Height="22" Margin="3.618,13,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="519" Grid.ColumnSpan="2" Grid.Column="1" TabIndex="0"/>
         <Button x:Name="btn_browse_nsp" Content="Browse" HorizontalAlignment="Left" Margin="232.334,13,0,0" VerticalAlignment="Top" Width="102" Height="22" Click="btn_browse_nsp_Click" Grid.Column="2" TabIndex="1"/>
-        <Button x:Name="btn_convert" Content="Convert" HorizontalAlignment="Left" Margin="232.334,111,0,0" VerticalAlignment="Top" Width="102" Height="22" Click="btn_convert_Click" Grid.Column="2" TabIndex="9"/>
-        <CheckBox x:Name="chk_tempfolder" Content="Use Output Dir as Temporary" HorizontalAlignment="Left" Margin="16,114,0,0" VerticalAlignment="Top" Width="211" Grid.Column="2" TabIndex="8"/>
+        <Button x:Name="btn_convert" Content="Convert" HorizontalAlignment="Left" Margin="232.334,111,0,0" VerticalAlignment="Top" Width="102" Height="22" Click="btn_convert_Click" Grid.Column="2" TabIndex="7"/>
+        <CheckBox x:Name="chk_tempfolder" Content="Use Output Dir as Temporary" HorizontalAlignment="Left" Margin="16,114,0,0" VerticalAlignment="Top" Width="211" Grid.Column="2" TabIndex="6"/>
     </Grid>
 </Window>

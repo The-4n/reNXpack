@@ -7,6 +7,6 @@
     #define USAGE_PROGRAM_NAME "renxpack"
 #endif
 
-#define RENXPACK_VERSION "v1.11"
+#define RENXPACK_VERSION "v1.15"
 
 #endif
