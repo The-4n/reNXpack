@@ -22,7 +22,7 @@ typedef struct {
     char *type;
     char *digest;
     unsigned char keygen_min;
-    uint64_t requiredsysversion;
+    uint32_t requiredsysversion;
     cnmt_xml_content_t *contents;
 } cnmt_xml_ctx_t;
 
@@ -78,7 +78,7 @@ typedef struct {
     uint32_t title_version;
     unsigned char digest[0x20];
     unsigned char keygen_min;
-    uint64_t requiredsysversion;
+    uint32_t requiredsysversion;
     cnmt_content_record_t *cnmt_content_records;
     filepath_t meta_filepath;
 } cnmt_ctx_t;

@@ -37,7 +37,7 @@ void cnmt_create_xml(cnmt_xml_ctx_t *cnmt_xml_ctx, cnmt_ctx_t *cnmt_ctx, nsp_ctx
     }
     fprintf(file, "  <Digest>%s</Digest>\x0D\x0A", cnmt_xml_ctx->digest);
     fprintf(file, "  <KeyGenerationMin>%u</KeyGenerationMin>\x0D\x0A", cnmt_xml_ctx->keygen_min);
-    fprintf(file, "  <RequiredSystemVersion>%" PRIu64 "</RequiredSystemVersion>\x0D\x0A", cnmt_xml_ctx->requiredsysversion);
+    fprintf(file, "  <RequiredSystemVersion>%" PRIu32 "</RequiredSystemVersion>\x0D\x0A", cnmt_xml_ctx->requiredsysversion);
     fprintf(file, "  <PatchId>0x%s</PatchId>\x0D\x0A", cnmt_xml_ctx->patch_id);
     fprintf(file, "</ContentMeta>");
 

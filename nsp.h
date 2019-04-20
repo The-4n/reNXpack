@@ -24,8 +24,6 @@ typedef struct {
 
 typedef struct {
     filepath_t filepath;
-    char title_name[0x200];
-    char title_display_version[0x10];
     uint8_t entry_count;
     nsp_entry_t *nsp_entry;
 } nsp_ctx_t;

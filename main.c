@@ -213,17 +213,30 @@ int main(int argc, char **argv)
     if (applications_cnmt_ctx.count != 0)
     {
         for (int gsum = 0; gsum < applications_cnmt_ctx.count; gsum++)
+        {
             printf("Game NSP %i: %s\n", gsum + 1, application_nsps[gsum].filepath.char_path);
+            printf("Original RequiredSystemVersion: %s\n", get_required_system_version(applications_cnmt_ctx.cnmt[gsum].requiredsysversion));
+            printf("Original Keygeneration: %i\n", applications_cnmt_ctx.cnmt[gsum].keygen_min);
+        }
     }
     if (patches_cnmt_ctx.count != 0)
     {
+        printf("\n");
         for (int patchsum = 0; patchsum < patches_cnmt_ctx.count; patchsum++)
+        {
             printf("Update NSP: %i: %s\n", patchsum + 1, patch_nsps[patchsum].filepath.char_path);
+            printf("Original RequiredSystemVersion: %s\n", get_required_system_version(patches_cnmt_ctx.cnmt[patchsum].requiredsysversion));
+            printf("Original Keygeneration: %i\n", patches_cnmt_ctx.cnmt[patchsum].keygen_min);
+        }
     }
     if (addons_cnmt_ctx.count != 0)
     {
+        printf("\n");
         for (int dlcsum = 0; dlcsum < addons_cnmt_ctx.count; dlcsum++)
+        {
             printf("DLC NSP %i: %s\n", dlcsum + 1, addon_nsps[dlcsum].filepath.char_path);
+            printf("Original Keygeneration: %i\n", addons_cnmt_ctx.cnmt[dlcsum].keygen_min);
+        }
     }
 
     fclose(tool_ctx.file);

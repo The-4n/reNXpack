@@ -67,5 +67,6 @@ static inline uint64_t media_to_real(uint64_t media) {
 }
 
 void hexBinaryString(unsigned char *in, int inSize, char *out, int outSize);
+char *get_required_system_version(uint32_t requiredsystemversion);
 
 #endif

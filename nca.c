@@ -538,7 +538,7 @@ void nca_saved_meta_process(nca_ctx_t *ctx, filepath_t *filepath)
     switch (cnmt_header.type)
     {
     case 0x80: // Application
-        // Gamecard may contain more than one Application Meta
+        // NSP may contain more than one Application Meta
         if (applications_cnmt_ctx.count == 0)
         {
             applications_cnmt_ctx.cnmt = (cnmt_ctx_t *)calloc(1, sizeof(cnmt_ctx_t));
@@ -555,7 +555,7 @@ void nca_saved_meta_process(nca_ctx_t *ctx, filepath_t *filepath)
         applications_cnmt_ctx.count++;
         break;
     case 0x81: // Patch
-        // Gamecard may contain more than one Patch Meta
+        // NSP may contain more than one Patch Meta
         if (patches_cnmt_ctx.count == 0)
         {
             patches_cnmt_ctx.cnmt = (cnmt_ctx_t *)calloc(1, sizeof(cnmt_ctx_t));
@@ -572,7 +572,7 @@ void nca_saved_meta_process(nca_ctx_t *ctx, filepath_t *filepath)
         patches_cnmt_ctx.count++;
         break;
     case 0x82: // AddOn
-        // Gamecard may contain more than one Addon Meta
+        // NSP may contain more than one Addon Meta
         if (addons_cnmt_ctx.count == 0)
         {
             addons_cnmt_ctx.cnmt = (cnmt_ctx_t *)calloc(1, sizeof(cnmt_ctx_t));

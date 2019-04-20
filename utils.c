@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <math.h>
 #include <sys/stat.h>
 #ifdef _WIN32
 #include <direct.h>
@@ -235,3 +236,26 @@ while (--inSize >= 0)
 *out = 0;
 }
 
+// Convert uin32 requriedsystemverison to Major.Minor.Micro
+char *get_required_system_version(uint32_t requiredsystemversion)
+{
+    char *requiredsystemversionstr = (char *)calloc(1, 0x10);
+    memset(requiredsystemversionstr, 0, 0x10);
+    uint16_t major = 0;
+    uint16_t minor = 0;
+    uint16_t micro = 0;
+
+    // Major Bits = 26-31
+    for (int mjc = 26; mjc <= 31; mjc++)
+        major += ((requiredsystemversion >> mjc) & 0x1) * pow(2, mjc-26);
+    // Minor Bits = 20-25
+    for (int mic = 20; mic <= 25; mic++)
+        minor += ((requiredsystemversion >> mic) & 0x1) * pow(2, mic-20);
+    // Minor Bits = 16-19
+    for (int mcc = 16; mcc <= 19; mcc++)
+        micro += ((requiredsystemversion >> mcc) & 0x1) * pow(2, mcc-16);
+
+    snprintf(requiredsystemversionstr, 0x10, "%" PRIu16 ".%" PRIu16 ".%" PRIu16 "", major, minor, micro);
+
+    return requiredsystemversionstr;
+}
